@@ -1,0 +1,152 @@
+\documentclass[a4paper,		% Size of paper
+	12pt,    	% Size of the text (fontsize)
+	titlepage,       % Has titlepage
+	twoside,	% Document is book styled
+	DIV = 14,
+	BCOR = 6mm,
+	parskip = half,
+	numbers = noenddot,
+	headings	= small,
+	headsepline = .4pt,
+	cleardoublepage = empty]{scrbook} %scrbook is the type of document defined by KOMA
+\usepackage{calc,pifont,eurosym,amsmath,wasysym,amssymb,amsfonts}
+\usepackage[automark,markcase=ignoreuppercase,headsepline]{scrlayer-scrpage}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{xcolor}
+%\usepackage[explicit]{titlesec}
+\usepackage[normalem]{ulem}
+%\usepackage[skip=0cm plus 0cm,indent=0cm]{parskip}
+%\usepackage{fancyhdr}
+%\usepackage[vmargin=1.5cm,hmargin=2.5cm,includeheadfoot,head=1cm,headsep=0.5cm,foot=12pt,footskip=16pt]{geometry}
+\usepackage{array,supertabular,hhline,colortbl,enumitem,lastpage,hyperref}
+\usepackage{longtable}
+\usepackage{framed}
+\usepackage{listofitems}
+\usepackage{lipsum}
+\usepackage{blindtext}
+\usepackage{booktabs}
+\usepackage{tabularray}
+\DefTblrTemplate{contfoot-text}{normal}{Fortsetzung auf der nächsten Seite}
+\SetTblrTemplate{contfoot-text}{normal} 
+\DefTblrTemplate{conthead-text}{normal}{Fortsetzung} 
+\SetTblrTemplate{conthead-text}{normal}
+\DefTblrTemplate{firsthead,middlehead,lasthead}{default}{}
+\usepackage[absolute]{textpos}
+\hypersetup{colorlinks=true,allcolors=black}
+% Headings
+% Outline numbering
+\setcounter{secnumdepth}{0}
+\makeatletter
+\newcommand\arraybslash{\let\\\@arraycr}
+\makeatother
+
+\clearscrheadfoot
+\setkomafont{pageheadfoot}{\normalfont\normalcolor}
+\setkomafont{pagenumber}{\normalfont}
+\automark[section]{section}								% scrheadings mit Kapitel bzw. section und Seitenzahl oben
+\ofoot[]{}												% scrplain ohne alles
+\setheadsepline{.4pt}
+\ohead[]{\normalfont\pagemark}
+\ihead[]{\normalfont\headmark}
+
+\pagestyle{scrheadings}
+\setlength{\skip\footins}{0.12cm}
+\setlength\tabcolsep{1mm}
+
+\renewcommand\arraystretch{1.3}
+
+\newcommand{\nein}{40}
+
+%	#1	date to check
+%	#2	array of dates
+%	#3	what to print
+\newcommand{\testdates}[3]{%
+	\foreachitem\z\in#2{%
+		\ifnum\z=#1%
+		#3%
+		\fi%
+	}%
+}
+
+%	#1	date to check
+%	#2	1-->vormittag, 2-->nachmittag
+\newcommand{\FuelleAus}[2]{%
+	\testdates{#1}{\TageKrank}{K}%
+	\testdates{#1}{\TageUrlaub}{U}%
+	\testdates{#1}{\TageVorlesung}{V}%
+	\testdates{#1}{\TageBlockveranstaltung}{B}%
+	\testdates{#1}{\TageDienstreise}{D}%
+	\ifnum#2=1%
+	\testdates{#1}{\VormittagsKrank}{K}%
+	\testdates{#1}{\VormittagsUrlaub}{U}%
+	\testdates{#1}{\VormittagsVorlesung}{V}%
+	\testdates{#1}{\VormittagsBlockveranstaltung}{B}%
+	\testdates{#1}{\VormittagsDienstreise}{D}%
+	\fi%
+	\ifnum#2=2%
+	\testdates{#1}{\NachmittagsKrank}{K}%
+	\testdates{#1}{\NachmittagsUrlaub}{U}%
+	\testdates{#1}{\NachmittagsVorlesung}{V}%
+	\testdates{#1}{\NachmittagsBlockveranstaltung}{B}%
+	\testdates{#1}{\NachmittagsDienstreise}{D}%
+	\fi%
+}
+
+\newcommand*\silentsection[1]{%
+	\addtocounter{chapter}{1}
+	\addcontentsline{toc}{chapter}{#1}
+	\sectionmark{#1} % this is to get headers for the section
+}
+
+\makeatletter
+\newcommand*{\cleartoleftpage}{%
+	\clearpage
+	\if@twoside
+		\ifodd\c@page
+			\hbox{}\newpage
+		\if@twocolumn
+			\hbox{}\newpage
+		\fi
+		\fi
+	\fi
+}
+\makeatother
+\setlength{\topsep}{0pt}
+
+\title{Berichtsheft}
+
+\begin{document}
+	\newcommand{\Vorname}{}		%Änderung hat keine Wirkung
+	\newcommand{\Nachname}{}		%Änderung hat keine Wirkung
+	\newcommand{\Monat}{}		%Änderung hat keine Wirkung
+	\newcommand{\Jahr}{}		%Änderung hat keine Wirkung
+	\newcommand{\Betreuer}{}		%Änderung hat keine Wirkung
+	\newcommand{\Institut}{}		%Änderung hat keine Wirkung
+	\newcommand{\Datum}{}		%Änderung hat keine Wirkung
+	\newcommand{\BerichtNr}{}		%Änderung hat keine Wirkung
+	\newcommand{\Bemerkungen}{}		%Änderung hat keine Wirkung
+	\newcommand{\contentBericht}{}		%Änderung hat keine Wirkung
+	\frontmatter
+	\pagestyle{empty}						% keine Kopf/Fusszeile, keine Seitenzahlen
+	\input{document_info}
+	\include{titlepage}			\cleardoublepage
+	\setcounter{tocdepth}{1}
+	\tableofcontents
+	%
+	\mainmatter
+	\cleartoleftpage		%to-do: wie bekommt man es hin, dass der Bericht auf der linken Seite anfängt, aber nicht so viele Seiten zwischen toc und 1.Bericht sind?
+	\pagestyle{scrheadings}
+	%
+	%	A	C	H	T	U	N	G	!
+	%
+	%In diese Liste eintragen, welche Berichte kompiliert werden!
+	\readlist*\Berichte{1}	%welche Berichte sollen inkludiert werden?
+	\foreachitem\n\in\Berichte{%
+		\input{Ausbildungsnachweis Nr \n/document_info}
+		\input{Ausbildungsnachweis Nr \n/tables}
+		\renewcommand{\contentBericht}{Ausbildungsnachweis Nr \n/bericht}
+		\include{Ausbildungsnachweis Nr \n/Ausbildungsbericht_gebunden} \cleardoubleevenpage
+	}%
+	%\end{tabular}
+\end{document}

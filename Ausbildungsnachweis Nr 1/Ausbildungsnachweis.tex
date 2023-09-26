@@ -1,0 +1,217 @@
+\documentclass[a4paper]{report}
+\usepackage{calc,pifont,eurosym,amsmath,wasysym,amssymb,amsfonts}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{xcolor}
+\usepackage[explicit]{titlesec}
+\usepackage[normalem]{ulem}
+\usepackage[skip=0cm plus 0cm,indent=0cm]{parskip}
+\usepackage{fancyhdr}
+\usepackage[vmargin=1.5cm,hmargin=2.5cm,includeheadfoot,head=1cm,headsep=0.5cm,foot=12pt,footskip=16pt]{geometry}
+\usepackage{array,supertabular,hhline,colortbl,enumitem,lastpage,hyperref}
+\usepackage{longtable}
+\usepackage{framed}
+\usepackage{listofitems}
+\usepackage{lipsum}
+\usepackage{blindtext}
+\usepackage{tabularray}
+\DefTblrTemplate{contfoot-text}{normal}{Fortsetzung auf der nächsten Seite}
+\SetTblrTemplate{contfoot-text}{normal} 
+\DefTblrTemplate{conthead-text}{normal}{Fortsetzung} 
+\SetTblrTemplate{conthead-text}{normal}
+\DefTblrTemplate{firsthead,middlehead,lasthead}{default}{}
+\hypersetup{colorlinks=true,allcolors=black}
+% Headings
+% Outline numbering
+\setcounter{secnumdepth}{0}
+\makeatletter
+\newcommand\arraybslash{\let\\\@arraycr}
+\makeatother
+% Pages
+\fancypagestyle{Standard}{\fancyhf{}
+	\fancyhead[L]{Ausbildung zur/zum Mathematisch-technischen Softwareentwickler/in (MATSE) an der RWTH Aachen, im Forschungszentrum Jülich und kooperierenden Unternehmen}
+	\fancyfoot[R]{Seite \thepage{} von \pageref{LastPage}}
+	\renewcommand\headrulewidth{0.75pt}
+	\renewcommand\footrulewidth{0pt}
+	\renewcommand\thepage{\arabic{page}}
+}
+\pagestyle{Standard}
+\setlength{\skip\footins}{0.12cm}
+\setlength\tabcolsep{1mm}
+\renewcommand\arraystretch{1.3}
+
+\title{Ausbildungsnachweis Nr}
+\title{Berichtsheft}
+
+\newcommand{\nein}{40}
+
+\newcommand{\Vorname}{}		%Änderung hat keine Wirkung
+\newcommand{\Nachname}{}		%Änderung hat keine Wirkung
+\newcommand{\Monat}{}		%Änderung hat keine Wirkung
+\newcommand{\Jahr}{}		%Änderung hat keine Wirkung
+\newcommand{\Betreuer}{}		%Änderung hat keine Wirkung
+\newcommand{\Institut}{}		%Änderung hat keine Wirkung
+\newcommand{\Datum}{}		%Änderung hat keine Wirkung
+\newcommand{\BerichtNr}{}		%Änderung hat keine Wirkung
+\newcommand{\Bemerkungen}{}		%Änderung hat keine Wirkung
+\newcommand{\contentBericht}{}		%Änderung hat keine Wirkung
+
+%	#1	date to check
+%	#2	array of dates
+%	#3	what to print
+\newcommand{\testdates}[3]{%
+	\foreachitem\z\in#2{%
+		\ifnum\z=#1%
+			#3%
+		\fi%
+	}%
+}
+
+%	#1	date to check
+%	#2	1-->vormittag, 2-->nachmittag
+\newcommand{\FuelleAus}[2]{%
+	\testdates{#1}{\TageKrank}{K}%
+	\testdates{#1}{\TageUrlaub}{U}%
+	\testdates{#1}{\TageVorlesung}{V}%
+	\testdates{#1}{\TageBlockveranstaltung}{B}%
+	\testdates{#1}{\TageDienstreise}{D}%
+	\ifnum#2=1%
+		\testdates{#1}{\VormittagsKrank}{K}%
+		\testdates{#1}{\VormittagsUrlaub}{U}%
+		\testdates{#1}{\VormittagsVorlesung}{V}%
+		\testdates{#1}{\VormittagsBlockveranstaltung}{B}%
+		\testdates{#1}{\VormittagsDienstreise}{D}%
+	\fi%
+	\ifnum#2=2%
+		\testdates{#1}{\NachmittagsKrank}{K}%
+		\testdates{#1}{\NachmittagsUrlaub}{U}%
+		\testdates{#1}{\NachmittagsVorlesung}{V}%
+		\testdates{#1}{\NachmittagsBlockveranstaltung}{B}%
+		\testdates{#1}{\NachmittagsDienstreise}{D}%
+	\fi%
+	
+}
+
+\begin{document}
+\input{document_info}
+\input{tables}
+\begin{center}
+	\textbf{\uline{Ausbildungsnachweis}}
+\end{center}
+\addcontentsline{toc}{part}{Ausbildungsnachweis Nr. \BerichtNr}
+
+\begin{supertabular}{m{7.8cm}m{0.1cm}m{7.8cm}}
+	\centering \Nachname, \Vorname & & \centering\arraybslash \Monat, \Jahr\\
+	\hhline{-~-}
+	\centering Name, Vorname & & \centering\arraybslash Berichtszeitraum (Monat, Jahr)\\
+	%
+	\centering \Betreuer & & \centering\arraybslash \Institut\\
+	\hhline{-~-}
+	\centering Name Betreuer/in & &\centering\arraybslash Institut / Firma\\
+	%
+	\centering \Datum & &\\
+	\hhline{-~~}
+	\centering Datum & &\\
+\end{supertabular}
+\vspace{1cm}
+
+\begin{center}
+	\begin{tabular}{lll}
+		V = Vorlesung / Übung &	B = Blockveranstaltung & U = Urlaub\\
+		D = Dienstreise & K = Krank &\\
+	\end{tabular}
+\end{center}
+\begin{longtblr}
+	{
+		hline{1-3}={0.75pt},
+		hline{4,5}={1-30}{0.75pt},
+		vline{1-31}={0.75pt},
+		vline{32,33}={1,2}{0.75pt},
+		colspec = {*{2}{X[c]} *{2}{X[l]} *{2}{X[l]} *{2}{X[l]} *{2}{X[l]} *{2}{X[l]} *{2}{X[l]} *{2}{X[l]} *{2}{X[l]} *{2}{X[l]} *{2}{X[l]} *{2}{X[l]} *{2}{X[l]} *{2}{X[l]} *{2}{X[l]} *{2}{X[l]}},
+		row{1}  = {font=\bfseries, c},
+		row{3}  = {font=\bfseries, c},
+		rowhead=1
+	}
+	\SetCell[c=2]{c}1& & \SetCell[c=2]{c}2 & & \SetCell[c=2]{c}3 & & \SetCell[c=2]{c}4 & & \SetCell[c=2]{c}5 & & \SetCell[c=2]{c}6 & & \SetCell[c=2]{c}7 & & \SetCell[c=2]{c}8 & & \SetCell[c=2]{c}9 & & \SetCell[c=2]{c}10 & & \SetCell[c=2]{c}11 & & \SetCell[c=2]{c}12 & & \SetCell[c=2]{c}13 & & \SetCell[c=2]{c}14 & & \SetCell[c=2]{c}15 & & \SetCell[c=2]{c}16 \\
+	\FuelleAus{1}{1}&\FuelleAus{1}{2}&
+	\FuelleAus{2}{1}&\FuelleAus{2}{2}&
+	\FuelleAus{3}{1}&\FuelleAus{3}{2}&
+	\FuelleAus{4}{1}&\FuelleAus{4}{2}&
+	\FuelleAus{5}{1}&\FuelleAus{5}{2}&
+	\FuelleAus{6}{1}&\FuelleAus{6}{2}&
+	\FuelleAus{7}{1}&\FuelleAus{7}{2}&
+	\FuelleAus{8}{1}&\FuelleAus{8}{2}&
+	\FuelleAus{9}{1}&\FuelleAus{9}{2}&
+	\FuelleAus{10}{1}&\FuelleAus{10}{2}&
+	\FuelleAus{11}{1}&\FuelleAus{11}{2}&
+	\FuelleAus{12}{1}&\FuelleAus{12}{2}&
+	\FuelleAus{13}{1}&\FuelleAus{13}{2}&
+	\FuelleAus{14}{1}&\FuelleAus{14}{2}&
+	\FuelleAus{15}{1}&\FuelleAus{15}{2}&
+	\FuelleAus{16}{1}&\FuelleAus{16}{2}\\
+	\SetCell[c=2]{c}17& & \SetCell[c=2]{c}18 & & \SetCell[c=2]{c}19 & & \SetCell[c=2]{c}20 & & \SetCell[c=2]{c}21 & & \SetCell[c=2]{c}22 & & \SetCell[c=2]{c}23 & & \SetCell[c=2]{c}24 & & \SetCell[c=2]{c}25 & & \SetCell[c=2]{c}26 & & \SetCell[c=2]{c}27 & & \SetCell[c=2]{c}28 & & \SetCell[c=2]{c}29 & & \SetCell[c=2]{c}30 & & \SetCell[c=2]{c}31 \\
+	\FuelleAus{17}{1}&\FuelleAus{17}{2}&
+	\FuelleAus{18}{1}&\FuelleAus{18}{2}&
+	\FuelleAus{19}{1}&\FuelleAus{19}{2}&
+	\FuelleAus{20}{1}&\FuelleAus{20}{2}&
+	\FuelleAus{21}{1}&\FuelleAus{21}{2}&
+	\FuelleAus{22}{1}&\FuelleAus{22}{2}&
+	\FuelleAus{23}{1}&\FuelleAus{23}{2}&
+	\FuelleAus{24}{1}&\FuelleAus{24}{2}&
+	\FuelleAus{25}{1}&\FuelleAus{25}{2}&
+	\FuelleAus{26}{1}&\FuelleAus{26}{2}&
+	\FuelleAus{27}{1}&\FuelleAus{27}{2}&
+	\FuelleAus{28}{1}&\FuelleAus{28}{2}&
+	\FuelleAus{29}{1}&\FuelleAus{29}{2}&
+	\FuelleAus{30}{1}&\FuelleAus{30}{2}&
+	\FuelleAus{31}{1}&\FuelleAus{31}{2} \\
+\end{longtblr}
+\begin{center}
+	\begin{tabular}{ll}
+		1. Kästchen = Vormittag & 2. Kästchen = Nachmittag\\
+	\end{tabular}
+\end{center}
+
+\textbf{In diesem Monat wurden folgende Klausuren geschrieben}
+\begin{longtblr}
+	{
+		hlines={0.75pt},
+		vlines={0.75pt},
+		colspec = {*{2}{X[l]} *{2}{X[l]} *{2}{X[l]}},
+		row{1}  = {font=\bfseries, c}
+	}
+	Fach: & Note (optional): & Bemerkung:\\
+	\NoteEins[1]&\NoteEins[2]&\NoteEins[3]\\
+	\NoteZwei[1]&\NoteZwei[2]&\NoteZwei[3]\\
+	\NoteDrei[1]&\NoteDrei[2]&\NoteDrei[3]\\
+	\NoteVier[1]&\NoteVier[2]&\NoteVier[3]\\
+	\NoteFuenf[1]&\NoteFuenf[2]&\NoteFuenf[3]\\
+\end{longtblr}
+
+\begin{longtblr}
+	{
+		vlines,
+		hlines,
+		colspec = {*{2}{X[l]}},
+		row{1}  = {font=\bfseries, c}
+	}
+	Besondere Bemerkungen\\
+	\begin{minipage}[t][2.5cm][t]{\textwidth}
+		\Bemerkungen
+	\end{minipage}
+\end{longtblr}
+\vspace{0.5cm}
+
+\textbf{Die Ausbildungsnachweise sind vom Auszubildenden bis zum Ende der Ausbildung aufzubewahren und bei der
+Abschlussprüfung vorzulegen.}
+
+\newpage
+Bitte beachten Sie beim Ausfüllen das Merkblatt zum Ausbildungsnachweis.
+
+\begin{framed}
+	Detaillierte Beschreibung der Tätigkeit (ausgeführte Arbeiten) bzw. Themen der betrieblichen Berufsausbildung. Die Fähigkeiten können monatsbezogen zusammengefasst werden, sollen jedoch ermöglichen, die geleistete Arbeit nachvollziehen zu können.
+	\hrule
+	\input{bericht}
+\end{framed}
+%\end{tabular}
+\end{document}

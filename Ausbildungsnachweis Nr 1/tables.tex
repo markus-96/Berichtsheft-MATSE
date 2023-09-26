@@ -1,0 +1,35 @@
+%Seite 1, die Tabelle wann man wo war.
+%Jeweils in die geschwungenen Klammern schreiben, an welchen Tages etwas zutrifft.
+%War man zB am 4. und 5. des Monats und am 3. Nachmittags krank, trägt man bei \TageKrank: "{4,5}" und bei \VormittagsKrank: "{3}" ein.
+%Trifft etwas garnicht zu, muss man etwas höheres als 31 eintragen, zB bei \TageDienstreise: "{40}"
+%\readlist*\TageKrank		{4,5,6}
+\readlist*\TageKrank		{\nein}
+\readlist*\TageUrlaub		{\nein}
+\readlist*\TageVorlesung	{\nein}
+\readlist*\TageBlockveranstaltung{\nein}
+\readlist*\TageDienstreise	{\nein}
+
+\readlist*\VormittagsKrank		{\nein}
+\readlist*\VormittagsUrlaub		{\nein}
+\readlist*\VormittagsVorlesung	{\nein}
+\readlist*\VormittagsBlockveranstaltung{\nein}
+\readlist*\VormittagsDienstreise{\nein}
+
+\readlist*\NachmittagsKrank		{\nein}
+\readlist*\NachmittagsUrlaub	{\nein}
+\readlist*\NachmittagsVorlesung	{\nein}
+\readlist*\NachmittagsBlockveranstaltung{\nein}
+\readlist*\NachmittagsDienstreise{\nein}
+
+%Seite 1, die Tabelle für Noten.
+%Man kann fünf Noten eintragen. Hat man zB Lineare Algebra 2 geschrieben und hat eine 4,0 mit der Bemerkung "vier null gewinnt", schreibt man hier "{Lineare Algebra 2,{4,0},vier null gewinnt}"
+%\readlist*\NoteEins{Lineare Algebra 2,{4,0},vier null gewinnt}
+\readlist*\NoteEins{,{},}
+\readlist*\NoteZwei{,{},}
+\readlist*\NoteDrei{,{},}
+\readlist*\NoteVier{,{},}
+\readlist*\NoteFuenf{,{},}
+
+%Seite 1, die "Besonderen Bemerkungen"
+%\renewcommand{\Bemerkungen}{Hier können Bemerkungen stehen.}
+\renewcommand{\Bemerkungen}{}
